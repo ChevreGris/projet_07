@@ -1,18 +1,19 @@
 import csv
 import time
 
-file = open('data.csv')
+file = open('dataset1_Python+P7.csv')
 csvreader = csv.reader(file)
 header = next(csvreader)
 stocks = []
 for stock in csvreader:
+    if float(stock[1]) > 0.0 :
         stocks.append(stock)
 file.close()
 
 stocks = [
-        (a[0], int(a[1]), int(a[1]) * int(a[2]) / 100) for a in stocks
+        (a[0], int(float(a[1])*100), (float(a[1]) * float(a[2]))) for a in stocks
     ]
-    
+
 start_time = time.time()
 
 def optimized(capacite, stocks):
@@ -40,12 +41,14 @@ def optimized(capacite, stocks):
 
     return stocks_selection
 
-sac = (optimized(500, stocks))
+sac = (optimized(50000, stocks))
 
+print('\n------------------------------------------------------')
+print('\nNumber of usable stocks : ' +  str(len(stocks)))
 print("\nBest combinations : \n")
 for a in sac:
-    print(str(a[0]) + ' for ' + str(a[1]) + '€ and ' + str(a[2]) + '€ of profits.')
+    print('    ' + str(a[0]) + ' for ' + str(round(a[1]/100, 2)) + '€ and ' + str(round(a[2]/100, 2)) + '€ of profits.')
 print("\nTotal profits : \n")    
-print('    ' + str(round(sum(i[2] for i in sac), 2)) + '€ for a budget of ' + str(sum(i[1] for i in sac)) + '€.\n')
-
-print("Execution time : --- %s seconds ---" % round(time.time() - start_time, 4))
+print('    ' + str(round(sum(i[2]/100 for i in sac), 2)) + '€ for a budget of ' + str(round(sum(i[1]/100 for i in sac), 2)) + '€.\n')
+print("\nExecution time : --- %s seconds ---" % round(time.time() - start_time, 4))
+print('\n------------------------------------------------------')
