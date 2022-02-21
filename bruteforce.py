@@ -44,7 +44,7 @@ for i in range(len(Stocks)):
 print("\nBest combinations : \n")
 for a in best_comb:
     print(str(a[0]) + ' for ' + str(a[1]) + '€ and ' + str(a[2]) + '€ of profits.')
-print("\nTotal profits : \n")    
+print("\nTotal profits : \n")
 print('    ' + str(round(best_profit, 2)) + '€ for a budget of ' + str(sum(i[1] for i in best_comb)) + '€.\n')
 
 print("Execution time : --- %s seconds ---" % round(time.time() - start_time, 4))
